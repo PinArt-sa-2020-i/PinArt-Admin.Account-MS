@@ -12,7 +12,7 @@ services:
   pinart-config.account-ms:
     build: .
     entrypoint: /entrypoint.sh
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python ConfigAccount/manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
     ports:
