@@ -1,25 +1,22 @@
-version: '2'
+version: "3"
 
 services:
-  pinart-config.account-ms:
+  pinart-config.account-db:
     image: postgres
     environment:
-      - POSTGRES_DB = pinart-config.account-db
-      - POSTGRES_USER = postgres
-      - POSTGRES_PASSWORD = postgres
-      - PGDATA = /var/lib/postgresql/data/pgdata
-    volumes:
-      - db_data: /var/lib/postgresql/data/pgdata
+      - POSTGRES_DB=pinart-config.account-db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
   pinart-config.account-ms:
     build: .
+    entrypoint: /entrypoint.sh
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
     ports:
       - "8000:8000"
     depends_on:
-      - pinart-config.account-ms
+      - pinart-config.account-db
 
-volumes:
-  db_data:
-    external: true
