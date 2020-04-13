@@ -1,10 +1,11 @@
+version: '2'
 
- version: '2'
- services:
-   pinart-config.account-ms:
-     build: .
-     command: python manage.py runserver 0.0.0.0:8000
-     volumes:
-       - .:/code
-     ports:
-       - "8000:8000"
+services:
+  pinart-config.account-ms:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+  
