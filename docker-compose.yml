@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  pinart-config.account-db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=pinart-config.account-db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+  pinart-config.account-ms:
+    build: .
+    command: python ConfigAccount/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - pinart-config.account-db
+

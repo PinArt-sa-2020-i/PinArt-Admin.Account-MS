@@ -1,2 +1,2 @@
-# PinArt-Admin.Account-MS
-Microservicio modulo administrador de cuenta y autenticacion de PinArt
+# PinArt-Config.Account-MS
+Microservicio modulo configuracion de cuenta de PinArt
