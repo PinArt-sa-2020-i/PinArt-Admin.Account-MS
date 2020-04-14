@@ -16,17 +16,17 @@ consumes:
 produces:
   - application/json
 paths:
-  /users:
+  /NotificationType:
     post:
-      summary: Creates a new user
-      operationId: createUser
+      summary: Created a new NotificationType
+      operationId: createNotificationType
       parameters:
-        - name: user
+        - name: NotificationType
           in: body
           required: true
-          description: User Object
+          description: NotificationType Object
           schema:
-            $ref: '#/definitions/UserInput'
+            $ref: '#/definitions/NotificationType'
       responses:
         '201':
           description: Created
@@ -39,13 +39,13 @@ paths:
           schema:
             $ref: '#/definitions/ErrorModel'
     get:
-      summary: Returns all users
-      operationId: getAllUsers
+      summary: Returns all notification types
+      operationId: getAllNotificationType
       responses:
         '200':
           description: Ok
           schema:
-            $ref: '#/definitions/UsersList'
+            $ref: '#/definitions/NotificationTypeList'
         '406':
           description: Not Acceptable (Invalid Params)
           schema:
@@ -55,21 +55,21 @@ paths:
           schema:
             $ref: '#/definitions/ErrorModel'
 
-  /users/{id}:
+  /NotificationType/{id}:
     get:
-      summary: Returns an user with the given id
-      operationId: getUserById
+      summary: Returns an NotificationType with the given id
+      operationId: getNotificationTypeById
       parameters:
         - name: id
           in: path
-          description: The id of the user to be returned
+          description: The id of the NotificationType to be returned
           required: true
           type: integer
       responses:
         '200':
           description: Ok
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/NotificationType'
         '404':
           description: Not Found
           schema:
@@ -84,12 +84,12 @@ paths:
             $ref: '#/definitions/ErrorModel'
 
     put:
-      summary: Updates an user with the given id
-      operationId: updateUser
+      summary: Updates an NotificationType with the given id
+      operationId: updateNotificationType
       parameters:
         - name: id
           in: path
-          description: The id of the user to be updated
+          description: The id of the NotificationType to be updated
           required: true
           type: integer
         - name: user
@@ -97,7 +97,7 @@ paths:
           required: true
           description: User Object
           schema:
-            $ref: '#/definitions/UserInput'
+            $ref: '#/definitions/NotificationType'
       responses:
         '204':
           description: No Content
@@ -115,12 +115,504 @@ paths:
             $ref: '#/definitions/ErrorModel'
 
     delete:
-      summary: Deletes an user with the given id
-      operationId: deleteCUser
+      summary: Deletes an NotificationType with the given id
+      operationId: deleteNotificationType
       parameters:
         - name: id
           in: path
-          description: The id of the user to be deleted
+          description: The id of the NotificationType to be deleted
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+  /ConfigNotification:
+    post:
+      summary: Created a new ConfigNotification
+      operationId: createConfigNotification
+      parameters:
+        - name: ConfigNotification
+          in: body
+          required: true
+          description: ConfigNotification Object
+          schema:
+            $ref: '#/definitions/ConfigNotification'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    get:
+      summary: Returns all notification types
+      operationId: getAllConfigNotification
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/ConfigNotificationList'
+        '406':
+          description: Not Acceptable (Invalid Params)
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+          
+  /ConfigNotification/{id}:
+    get:
+      summary: Returns an ConfigNotification with the given id
+      operationId: getConfigNotificationById
+      parameters:
+        - name: id
+          in: path
+          description: The id of the ConfigNotification to be returned
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/ConfigNotification'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    put:
+      summary: Updates an ConfigNotification with the given id
+      operationId: updateConfigNotification
+      parameters:
+        - name: id
+          in: path
+          description: The id of the ConfigNotification to be updated
+          required: true
+          type: integer
+        - name: user
+          in: body
+          required: true
+          description: User Object
+          schema:
+            $ref: '#/definitions/ConfigNotification'
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    delete:
+      summary: Deletes an ConfigNotification with the given id
+      operationId: deleteConfigNotification
+      parameters:
+        - name: id
+          in: path
+          description: The id of the ConfigNotification to be deleted
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+  /Way:
+    post:
+      summary: Created a new Way
+      operationId: createWay
+      parameters:
+        - name: Way
+          in: body
+          required: true
+          description: Way Object
+          schema:
+            $ref: '#/definitions/Way'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    get:
+      summary: Returns all notification types
+      operationId: getAllWay
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/WayList'
+        '406':
+          description: Not Acceptable (Invalid Params)
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+  /Way/{id}:
+    get:
+      summary: Returns an Way with the given id
+      operationId: getWayById
+      parameters:
+        - name: id
+          in: path
+          description: The id of the Way to be returned
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/Way'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    put:
+      summary: Updates an Way with the given id
+      operationId: updateWay
+      parameters:
+        - name: id
+          in: path
+          description: The id of the Way to be updated
+          required: true
+          type: integer
+        - name: user
+          in: body
+          required: true
+          description: User Object
+          schema:
+            $ref: '#/definitions/Way'
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    delete:
+      summary: Deletes an Way with the given id
+      operationId: deleteWay
+      parameters:
+        - name: id
+          in: path
+          description: The id of the Way to be deleted
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+  /Sessions:
+    post:
+      summary: Created a new Sessions
+      operationId: createSessions
+      parameters:
+        - name: Sessions
+          in: body
+          required: true
+          description: Sessions Object
+          schema:
+            $ref: '#/definitions/Sessions'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    get:
+      summary: Returns all notification types
+      operationId: getAllSessions
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/SessionsList'
+        '406':
+          description: Not Acceptable (Invalid Params)
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+  /Sessions/{id}:
+    get:
+      summary: Returns an Sessions with the given id
+      operationId: getSessionsById
+      parameters:
+        - name: id
+          in: path
+          description: The id of the Sessions to be returned
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/Sessions'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    put:
+      summary: Updates an Sessions with the given id
+      operationId: updateSessions
+      parameters:
+        - name: id
+          in: path
+          description: The id of the Sessions to be updated
+          required: true
+          type: integer
+        - name: user
+          in: body
+          required: true
+          description: User Object
+          schema:
+            $ref: '#/definitions/Sessions'
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    delete:
+      summary: Deletes an Sessions with the given id
+      operationId: deleteSessions
+      parameters:
+        - name: id
+          in: path
+          description: The id of the Sessions to be deleted
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+  /LinkedAccounts:
+    post:
+      summary: Created a new LinkedAccounts
+      operationId: createLinkedAccounts
+      parameters:
+        - name: LinkedAccounts
+          in: body
+          required: true
+          description: LinkedAccounts Object
+          schema:
+            $ref: '#/definitions/LinkedAccounts'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    get:
+      summary: Returns all notification types
+      operationId: getAllLinkedAccounts
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/LinkedAccountsList'
+        '406':
+          description: Not Acceptable (Invalid Params)
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+  /LinkedAccounts/{id}:
+    get:
+      summary: Returns an LinkedAccounts with the given id
+      operationId: getLinkedAccountsById
+      parameters:
+        - name: id
+          in: path
+          description: The id of the LinkedAccounts to be returned
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/LinkedAccounts'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    put:
+      summary: Updates an LinkedAccounts with the given id
+      operationId: updateLinkedAccounts
+      parameters:
+        - name: id
+          in: path
+          description: The id of the LinkedAccounts to be updated
+          required: true
+          type: integer
+        - name: user
+          in: body
+          required: true
+          description: User Object
+          schema:
+            $ref: '#/definitions/LinkedAccounts'
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    delete:
+      summary: Deletes an LinkedAccounts with the given id
+      operationId: deleteLinkedAccounts
+      parameters:
+        - name: id
+          in: path
+          description: The id of the LinkedAccounts to be deleted
           required: true
           type: integer
       responses:
@@ -141,34 +633,18 @@ paths:
 
 definitions:
 
-  # Users
-  User:
+  #NotificationType
+  NotificationType:
     type: object
     properties:
       id:
         type: integer
-      firstName:
+      name:
         type: string
-      lastName:
-        type: string
-      username:
-        type: string
-      password:
+      description:
         type: string
 
-  UserInput:
-    type: object
-    properties:
-      firstName:
-        type: string
-      lastName:
-        type: string
-      username:
-        type: string
-      password:
-        type: string
-
-  UsersList:
+  NotificationTypeList:
     type: object
     required:
       - total
@@ -179,7 +655,111 @@ definitions:
       list:
         type: array
         items:
-          $ref: '#/definitions/User'
+          $ref: '#/definitions/NotificationType'
+
+  #ConfigNotification
+  ConfigNotification:
+    type: object
+    properties:
+      id:
+        type: integer
+      id_user:
+        type: integer
+      id_type:
+        type: integer
+      activated:
+        type: boolean
+
+  ConfigNotificationList:
+    type: object
+    required:
+      - total
+      - list
+    properties:
+      total:
+        type: number
+      list:
+        type: array
+        items:
+          $ref: '#/definitions/ConfigNotification'
+
+  #Way
+  Way:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+
+  WayList:
+    type: object
+    required:
+      - total
+      - list
+    properties:
+      total:
+        type: number
+      list:
+        type: array
+        items:
+          $ref: '#/definitions/Way'
+
+  #Sessions
+  Sessions:
+    type: object
+    properties:
+      id:
+        type: integer
+      id_user:
+        type: integer
+      id_authway:
+        type: integer
+      devices:
+        type: string
+      createdAt:
+        type: string
+      activated: 
+        type: boolean
+      
+  SessionsList:
+    type: object
+    required:
+      - total
+      - list
+    properties:
+      total:
+        type: number
+      list:
+        type: array
+        items:
+          $ref: '#/definitions/Sessions'
+
+  #LinkedAccounts
+  LinkedAccounts:
+    type: object
+    properties:
+      id:
+        type: integer
+      id_user:
+        type: integer
+      id_authway:
+        type: integer
+      email:
+        type: string
+      
+  LinkedAccountsList:
+    type: object
+    required:
+      - total
+      - list
+    properties:
+      total:
+        type: number
+      list:
+        type: array
+        items:
+          $ref: '#/definitions/LinkedAccounts'
 
 # Errors
   ErrorModel:
