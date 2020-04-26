@@ -84,8 +84,8 @@ DATABASES = {
         'NAME': 'pinart-config.account-db',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        #'HOST': 'pinart-config.account-db',
-        'HOST': 'localhost',
+        'HOST': 'pinart-config.account-db',
+        #'HOST': 'localhost',
         'PORT': 5432,
     }
 }
