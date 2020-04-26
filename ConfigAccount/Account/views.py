@@ -2,8 +2,10 @@ from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from jwcrypto import jwt, jwk
 from .models import TipoNotificacion, ConfigNotificaciones, Medio, Sesiones, CuentasEnlazadas
 from .serializers import TipoNotificacionSerializer, ConfigNotificacionesSerializer, MedioSerializer, SesionesSerializer, CuentasEnlazadasSerializer
+import json
 
 class TipoNotificacionViewSet(viewsets.ModelViewSet):
     serializer_class = TipoNotificacionSerializer
@@ -21,34 +23,44 @@ class SesionesViewSet(viewsets.ModelViewSet):
     serializer_class = SesionesSerializer
     queryset = Sesiones.objects.all()
 
-    @action(detail=True, methods=['get'])
-    def get_by_user(self, request, pk = None):
-        #queryset = Sesiones.objects.all()
-        session = Sesiones.objects.filter(IdUsuario = pk)
-        page = self.paginate_queryset(session)
-        if page is not None:
-            serializer = self.get_serializer(page, many = True)
-            return self.get_paginated_response(serializer.data)
-        serializer = self.get_serializer(session, many = True)
-        return Response(serializer.data)
-
-    # @action(detail=True, methods=['post'])
-    # def set_password(self, request, pk=None):
-    #     user = self.get_object()
-    #     serializer = PasswordSerializer(data=request.data)
-    #     if serializer.is_valid():
-    #         user.set_password(serializer.data['password'])
-    #         user.save()
-    #         return Response({'status': 'password set'})
-    #     else:
-    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    @action(detail=False, methods=['get'])
+    def get_by_user(self, request):
+        key = jwk.JWK(kty = 'oct', k = 'pinart20')
+        key.export()
+        token = request.headers['auth']
+        st = jwt.JWT(key = key, jwt = token)
+        result = json.loads(st.claims)
+        sessionID = int(result['sessionID'])
+        session = get_object_or_404(self.queryset, pk = sessionID)
+        serializer = SesionesSerializer(session)
+        if serializer.data['Activo']:
+            return Response(serializer.data['IdUsuario'])
+        else:
+            error = {
+                'message' : 'Sesion Inactiva'
+            }
+            return Response(error, status = status.HTTP_400_BAD_REQUEST)
 
     def create(self, request):
         serializer = SesionesSerializer(data = request.data)
+        key = jwk.JWK(kty = 'oct', k = 'pinart20')
+        key.export()
         if serializer.is_valid():
             serializer.save()
-            print("Create ", serializer.data['id'])
-            return Response(serializer.data, status = status.HTTP_201_CREATED)
+            sessionid = serializer.data['id']
+            userid = serializer.data['IdUsuario']
+            user = {
+                'userID' : userid,
+                'sessionID' : sessionid
+            }
+            Token = jwt.JWT(header = {'alg' : 'HS256'}, claims = user)
+            Token.make_signed_token(key)
+            result = Token.serialize()
+            response = {
+                'data' : serializer.data,
+                'Token' : result  
+            }
+            return Response(response, status = status.HTTP_201_CREATED)
         return Response(serializer.data, status = status.HTTP_400_BAD_REQUEST)
 
 class CuentasEnlazadasViewSet(viewsets.ModelViewSet):
