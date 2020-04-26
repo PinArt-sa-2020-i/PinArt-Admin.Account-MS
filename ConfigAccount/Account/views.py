@@ -19,6 +19,12 @@ class SesionesViewSet(viewsets.ModelViewSet):
     serializer_class = SesionesSerializer
     queryset = Sesiones.objects.all()
 
+    @action(detail=True, methods=['get'])
+    def get_by_user(self, request, pk=None):
+        session = get_object_or_404(queryset,IdUsuario = pk)
+        serializer = SesionesSerializer(session)
+        return Response(serialize.data)
+
 class CuentasEnlazadasViewSet(viewsets.ModelViewSet):
     serializer_class = CuentasEnlazadasSerializer
     queryset = CuentasEnlazadas.objects.all()
