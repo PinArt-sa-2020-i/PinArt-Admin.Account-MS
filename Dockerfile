@@ -2,19 +2,24 @@ FROM python:3.6
 
 ENV PYTHONUNBUFFERED 1
 
+RUN apt-get update -qq
+
 RUN mkdir /code
 
 WORKDIR /code
 
-ADD requirements.txt /code/
+COPY requirements.txt /code/
 
 RUN pip install -r requirements.txt
 
-ADD . code/
+COPY . /code/
 
-RUN python code/ConfigAccount/manage.py migrate
+COPY docker-entrypoint.sh /usr/bin/
+
+RUN chmod +x /usr/bin/docker-entrypoint.sh
+
+# Server
 
 EXPOSE 8000
 
-ENTRYPOINT ["python" , "code/ConfigAccount/manage.py" , "runserver" , "0.0.0.0:8000"]
-
+ENTRYPOINT ["docker-entrypoint.sh"]
