@@ -84,7 +84,7 @@ DATABASES = {
         'NAME':  os.environ.get('DB_NAME', 'pinart-config.account-db'),
         'USER': os.environ.get('DB_USER', 'postgres'),
         'PASSWORD': os.environ.get('DB_PASSWORD', 'postgres'),
-        'HOST': os.environ.get('DB_HOST', None),
+        'HOST': os.environ.get('DB_HOST', '52.54.55.167'),
         #'HOST': 'pinart-config.account-db',
         #'HOST': 'localhost',
         'PORT': os.environ.get('DB_PORT', 5432),

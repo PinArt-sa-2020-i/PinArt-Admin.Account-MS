@@ -14,4 +14,7 @@ ADD . code/
 
 RUN python code/ConfigAccount/manage.py migrate
 
-RUN python code/ConfigAccount/manage.py runserver 0.0.0.0:8000
+EXPOSE 8000
+
+ENTRYPOINT ["python" , "code/ConfigAccount/manage.py" , "runserver" , "0.0.0.0:8000"]
+
